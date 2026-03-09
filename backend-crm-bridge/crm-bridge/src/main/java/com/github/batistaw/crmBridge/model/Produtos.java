@@ -14,14 +14,16 @@ public class Produtos {
     private Long id;
     @Column(nullable = false)
     private String nomeProduto;
+    private String tipoProduto;
     @Column(nullable = false)
     private Double valorProduto;
 
     public Produtos(){}
 
-    public Produtos(Long id, String nomeProduto, Double valorProduto) {
+    public Produtos(Long id, String nomeProduto, String tipoProduto,  Double valorProduto) {
         this.id = id;
         this.nomeProduto = nomeProduto;
+        this.tipoProduto = tipoProduto;
         this.valorProduto = valorProduto;
     }
 
@@ -47,6 +49,14 @@ public class Produtos {
 
     public void setValorProduto(Double valorProduto) {
         this.valorProduto = valorProduto;
+    }
+
+    public String getTipoProduto() {
+        return tipoProduto;
+    }
+
+    public void setTipoProduto(String tipoProduto) {
+        this.tipoProduto = tipoProduto;
     }
     
     

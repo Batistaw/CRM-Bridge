@@ -9,6 +9,5 @@ import com.github.batistaw.crmBridge.model.Cliente;
 
 @Repository
 public interface ClienteRepository extends JpaRepository<Cliente, Long> {
-
     List<Cliente> findByUsername(String username);
 }

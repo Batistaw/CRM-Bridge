@@ -31,8 +31,8 @@ public class ClienteServiceImp implements ClienteService {
 
     @Override
     public Cliente update(Long id, Cliente cliente) {
-        Optional<Cliente> optionalCliente = this.repository.findById(id);
-        Cliente updateCliente = optionalCliente.get();
+        Cliente updateCliente = repository.findById(id)
+            .orElseThrow(() -> new RuntimeException("Cliente não encontrado!"));
 
         updateCliente.setUsername(cliente.getUsername());
         updateCliente.setWhatsapp(cliente.getWhatsapp());
