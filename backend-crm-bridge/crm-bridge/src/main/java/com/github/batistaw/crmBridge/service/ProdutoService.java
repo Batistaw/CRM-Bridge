@@ -12,4 +12,5 @@ public interface ProdutoService {
     List<Produtos> findAll();
     Produtos update(Long id, Produtos produtos);
     void delete(Long id);
+    // TODO: implementação de uma estrutura de pesquisa
 }
