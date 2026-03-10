@@ -20,8 +20,8 @@ function Menu() {
                     </li>
 
                     <li className="linkCadastroProduto">
-                        <Link to="/home/cadadastro-produto">
-                            Cadastrar Produto
+                        <Link to="/produtos">
+                            Produtos
                         </Link>
                     </li>   
                 </ul>
