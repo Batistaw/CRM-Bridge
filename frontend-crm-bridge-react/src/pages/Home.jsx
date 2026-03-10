@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
+import ClienteCard from "../componentes/ClienteCard";
 import "./Home.css"
 
 function Home() {
@@ -16,7 +17,10 @@ function Home() {
 
     return(
         <main className="home-container">
-            <h2>Clientes Hoje:</h2>
+            <div className="home-h2">
+                <h2>Clientes Hoje:</h2>
+                <ClienteCard clientes={cliente}/>
+            </div>
         </main>
     );
 }
