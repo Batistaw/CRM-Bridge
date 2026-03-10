@@ -4,6 +4,7 @@ import Home from './pages/Home'
 import CadastroCliente from './pages/CadastroCliente'
 import './App.css'
 import Produtos from './pages/Produtos'
+import CadastroProduto from './pages/CadastroProduto'
 
 function App() {
   

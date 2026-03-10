@@ -1,10 +1,13 @@
 import { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
+import CadastroProduto from "./CadastroProduto";
+import "./Produtos.css";
 
 function Produtos() {
     const [produto, setProduto] = useState([]);
     const [tipoProduto, setTipoProduto] = useState([]);
     const [valorProduto, setValorProduto] = useState([]);
+    const [modalAberto, setModalAberto] = useState(false);
     const location = useLocation();
     const navigate = useNavigate();
 
@@ -31,26 +34,40 @@ function Produtos() {
     return(
         
         <section className="table-container">
-            <button onClick={() => navigate(`/cadastrar-produto`)}>
-                + Novo Produto
-            </button>
-            <tbody>
-                {produto.map(p => (
-                    <tr key={p.id}>
-                        <td>{p.id}</td>
-                        <td>{p.name}</td>
-                        <td>{p.valorProduto}</td>
-                        <td>
-                            <button onClick={() => navigate(`/update-produto/${produto.id}`)}>
-                                update
-                            </button>
-                            <button onClick={() => handleDelete(p.id)}>
-                                Deletar
-                            </button>
-                        </td>
+            <div>
+
+                <button onClick={() => setModalAberto(true)}>+ Novo Produto</button>
+
+                {modalAberto && (
+                    <div className="modal-overlay">
+                        <div className="modal">
+                            <button onClick={() => setModalAberto(false)}>Fechar</button>
+                            <CadastroProduto onSucesso={() => setModalAberto(false)}/>
+                        </div>
+                    </div>
+                )}
+            </div>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th><th>Nome</th><th>Valor</th><th>Ações</th>
                     </tr>
-                ))}
-            </tbody>
+                </thead>
+                <tbody>
+                    {produto.map(p => (
+                        <tr key={p.id}>
+                            <td>{p.id}</td>
+                            <td>{p.name}</td>
+                            <td>{p.valorProduto}</td>
+                            <td>
+                                <button onClick={() => navigate(`/update-produto/${p.id}`)}>update</button>
+                                <button onClick={() => handleDelete(p.id)}>Deletar</button>
+                            </td>
+                        </tr>
+                    ))}
+                </tbody>
+            </table>
         </section>
     );
 }
