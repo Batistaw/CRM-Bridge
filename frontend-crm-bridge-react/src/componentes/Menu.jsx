@@ -14,8 +14,8 @@ function Menu() {
                     </li>
 
                     <li className="linkCadastroCliente">
-                        <Link to="/cadastro-cliente">
-                            Cadastrar Cliente
+                        <Link to="/clientes">
+                            Clientes
                         </Link>
                     </li>
 

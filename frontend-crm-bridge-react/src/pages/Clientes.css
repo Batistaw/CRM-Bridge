@@ -1,6 +1,20 @@
+/* Clientes.css */
+
 .table-container {
     padding: 24px;
     font-family: 'Segoe UI', sans-serif;
+}
+
+.tabela-titulo {
+    margin-bottom: 16px;
+    font-size: 20px;
+    color: #2c3e50;
+}
+
+.tabela-header {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 16px;
 }
 
 .btn-cadastro {
@@ -11,8 +25,6 @@
     border-radius: 4px;
     cursor: pointer;
     font-size: 14px;
-    margin-bottom: 16px;
-    float: right;
 }
 
 .btn-cadastro:hover {
@@ -40,44 +52,46 @@
     font-size: 14px;
 }
 
-.tb-produtos tr {
+.tb-clientes tr {
     border-bottom: 1px solid #f0f0f0;
 }
 
-.tb-produtos tr:hover {
+.tb-clientes tr:hover {
     background-color: #f8f9fa;
 }
 
-.tb-produtos td {
+.tb-clientes td {
     padding: 12px 16px;
     font-size: 14px;
     color: #333;
 }
 
-.tb-produtos button {
-    padding: 5px 12px;
+.btn-edit {
+    background-color: #4a90d9;
+    color: white;
     border: none;
+    padding: 5px 12px;
     border-radius: 4px;
     cursor: pointer;
     font-size: 13px;
     margin-right: 6px;
 }
 
-.tb-produtos button:first-child {
-    background-color: #4a90d9;
-    color: white;
-}
-
-.tb-produtos button:first-child:hover {
+.btn-edit:hover {
     background-color: #357abd;
 }
 
-.tb-produtos button:last-child {
+.btn-delete {
     background-color: #e74c3c;
     color: white;
+    border: none;
+    padding: 5px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 13px;
 }
 
-.tb-produtos button:last-child:hover {
+.btn-delete:hover {
     background-color: #c0392b;
 }
 
@@ -105,11 +119,15 @@
     box-shadow: 0 8px 32px rgba(0,0,0,0.2);
 }
 
-.modal button:first-child {
+.btn-fechar {
     align-self: flex-end;
     background: transparent;
     border: none;
     font-size: 14px;
     cursor: pointer;
     color: #666;
+}
+
+.btn-fechar:hover {
+    color: #333;
 }

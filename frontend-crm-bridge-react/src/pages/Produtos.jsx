@@ -11,54 +11,62 @@ function Produtos() {
     const location = useLocation();
     const navigate = useNavigate();
 
-    useEffect(() => {
-        fetch("http://localhost:8080/produtos/findAll")
+    const buscarProdutos = () => {
+            fetch("http://localhost:8080/produtos/")
             .then(res => res.json())
             .then(data => setProduto(data))
             .catch(err => console.log(err));
+    }
+
+    useEffect (() => {
+        buscarProdutos();
     }, [location]);
 
-
-     const handleDelete = (id) => {
-    fetch(`http://localhost:8080/produtos/delete/${id}`, {
-      method: "DELETE",
-    })
-      .then(() => {
-        setProduto(produto.filter(p => p.id !== id));
-      })
-      .catch(err => console.error(err));
+    const handleDelete = (id) => {
+        fetch(`http://localhost:8080/produtos/delete/${id}`, {
+        method: "DELETE",
+        })
+        .then(() => {
+            setProduto(produto.filter(p => p.id !== id));
+        })
+        .catch(err => console.error(err));
   };
-
 
 
     return(
         
         <section className="table-container">
-            <div>
-
-                <button onClick={() => setModalAberto(true)}>+ Novo Produto</button>
+            <div className="modal-cadastro">
+                <button  
+                onClick={() => setModalAberto(true)}
+                className="btn-cadastro">
+                    + Novo Produto
+                </button>
 
                 {modalAberto && (
                     <div className="modal-overlay">
                         <div className="modal">
                             <button onClick={() => setModalAberto(false)}>Fechar</button>
-                            <CadastroProduto onSucesso={() => setModalAberto(false)}/>
+                            <CadastroProduto onSucesso={() => {
+                                setModalAberto(false);
+                                buscarProdutos();
+                            }}/>
                         </div>
                     </div>
                 )}
             </div>
 
-            <table>
-                <thead>
+            <table className="tabela">
+                <thead className="cabecalho">
                     <tr>
                         <th>ID</th><th>Nome</th><th>Valor</th><th>Ações</th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody className="tb-produtos">
                     {produto.map(p => (
                         <tr key={p.id}>
                             <td>{p.id}</td>
-                            <td>{p.name}</td>
+                            <td>{p.nomeProduto}</td>
                             <td>{p.valorProduto}</td>
                             <td>
                                 <button onClick={() => navigate(`/update-produto/${p.id}`)}>update</button>

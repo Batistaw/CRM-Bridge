@@ -1,21 +1,31 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import "./CadastroCliente.css";
 
-function CadastroCliente() {
-    const [cliete, setCliente] = useState([]);
-    const [whatsapp, setWhatsapp] = useState([])
-    const [produtos, setProdutos] = useState([])
+function CadastroCliente({onSucesso}) {
+    const [cliete, setCliente] = useState("");
+    const [whatsapp, setWhatsapp] = useState("")
+    const [produtos, setProdutos] = useState("")
+    const [listaProdutos, setListaProdutos] = useState([]);
+
+    useEffect(() => {
+        fetch("http://localhost:8080/produtos/")
+            .then(res => res.json())
+            .then(data => setListaProdutos(data))
+            .catch(err => console.log(err));
+    }, []);
 
     const cadastrarCliente = (e) => { 
         e.preventDefault();
+
+        
         
         const novoCliete = {
-            username: novoCliete,
+            username: cliete,
             whatsapp: whatsapp, 
-            servico: produtos
+            produtos: [{ id: produtos }] 
         };
 
-        fetch("http://localhost:8080/api/cliente/salvar", {
+        fetch("http://localhost:8080/cliente/save", {
             method: "POST",
             headers: {
                "Content-Type": "application/json" 
@@ -23,8 +33,10 @@ function CadastroCliente() {
             body: JSON.stringify(novoCliete)
         })
         .then(res => res.json())
-        .then(data => console.log("Cadastrado!", data))
-        .catch(err => console.log(err));
+        .then(data => {
+            console.log("Cadastrado!", data);
+            if(onSucesso) onSucesso(); 
+        })
     }
 
     return(
@@ -55,16 +67,16 @@ function CadastroCliente() {
                         />
                     </div>
                     <div className="checkbox">
-                        <label for="Produtos" nameClass="produtos">Produtos</label>
+                        <label htmlFor="Produtos" className="produtos">Produtos</label>
                         <select 
-                            id="produtos" 
-                            nameClass="produtos-name">
                             value={produtos}
-                            onChange={(e) => setProdutos(e.target.value)}
-
-                            <option value="PORTA">Porta</option>
-                            <option value="CIMENTO">Cimento</option>
-                            <option value="VIDRO">Vidro</option>
+                            onChange={(e) => setProdutos(e.target.value)}>
+                            
+                            {listaProdutos.map(p => (
+                                <option key={p.id} value={p.id}>
+                                    {p.nomeProduto} - {p.tipoProduto} - R${p.valorProduto}
+                                </option>
+                            ))}
                         </select>
                     </div>
 
