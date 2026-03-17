@@ -74,7 +74,7 @@ function CadastroCliente({onSucesso}) {
                             
                             {listaProdutos.map(p => (
                                 <option key={p.id} value={p.id}>
-                                    {p.nomeProduto} - {p.tipoProduto} - R${p.valorProduto}
+                                    {p.nomeProduto} - {p.tipoProduto} | R${p.valorProduto}
                                 </option>
                             ))}
                         </select>

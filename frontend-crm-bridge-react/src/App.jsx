@@ -6,11 +6,13 @@ import Clientes from './pages/Clientes'
 import './App.css'
 import Produtos from './pages/Produtos'
 import CadastroProduto from './pages/CadastroProduto'
+import Login from './pages/Login'
 
 function App() {
   
   return (
     <Routes>
+      <Route path="/login" element={<Login/>}/>
       <Route path="/" element={<Layout/>}>
         <Route index element={<Home/>}/>
         <Route path="/clientes" element={<Clientes/>}/>

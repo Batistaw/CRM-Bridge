@@ -5,7 +5,7 @@
 }
 
 .card-item {
-    background-color: #cbc3ba;
+    background-color: #fafaff;
     min-width: 160px;
     padding: 15px;
     border-radius: 16px;
@@ -47,10 +47,15 @@
 
 .btn-whatsapp {
     color: white;
-    background-color: black;
+    background-color: #6beb8e;
     font-size: 11px;
-    padding: 3px 6px;
-    border-radius: 4px;
+    padding: 5px 8px;
+    border-radius: 6px;
     white-space: nowrap;
     text-decoration: none;
+}
+
+.btn-whatsapp:hover {
+    background-color: #10d164;
+    
 }
