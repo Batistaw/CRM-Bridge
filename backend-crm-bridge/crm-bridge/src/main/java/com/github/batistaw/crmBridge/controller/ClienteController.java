@@ -37,12 +37,12 @@ public class ClienteController {
         return this.clienteService.save(cliente);
     }
 
-    @PostMapping("update/{id}")
+    @PostMapping("/update/{id}")
     public Cliente update(@PathVariable Long id, @RequestBody Cliente cliente) {
         return this.clienteService.update(id, cliente);
     }
 
-    @DeleteMapping("deletar/{id}")
+    @DeleteMapping("/deletar/{id}")
     @ResponseBody
     public ResponseEntity<Void> delete(@PathVariable Long id) {
         this.clienteService.delete(id);

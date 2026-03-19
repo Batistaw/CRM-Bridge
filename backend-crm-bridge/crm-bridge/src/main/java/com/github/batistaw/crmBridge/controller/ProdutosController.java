@@ -3,6 +3,7 @@ package com.github.batistaw.crmBridge.controller;
 import java.util.List;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -17,6 +18,7 @@ import com.github.batistaw.crmBridge.service.ProdutoService;
 
 @RestController
 @RequestMapping("/produtos")
+@CrossOrigin(origins = "http://localhost:5173")
 public class ProdutosController {
     
     private ProdutoService produtoService;
@@ -30,12 +32,12 @@ public class ProdutosController {
         return this.produtoService.findAll();
     }
 
-    @PostMapping("save")
-    public Produtos save(Produtos produto) {
+    @PostMapping("/save")
+    public Produtos save(@RequestBody Produtos produto) {
         return this.produtoService.save(produto);
     }
 
-    @PostMapping("update/{id}")
+    @PostMapping("/update/{id}")
     public Produtos update(@PathVariable Long id, @RequestBody Produtos produto) {
         return this.produtoService.update(id, produto);
     }
