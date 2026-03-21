@@ -1,31 +1,28 @@
-package com.github.batistaw.crmBridge.filter;
+package com.github.batistaw.crmBridge.security.filter;
 
 import java.io.IOException;
+import java.util.List;
 
-import org.apache.el.stream.Optional;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
-import com.github.batistaw.crmBridge.model.Usuario;
-import com.github.batistaw.crmBridge.service.JwtService;
-import com.github.batistaw.crmBridge.service.UsuarioService;
+import com.github.batistaw.crmBridge.security.service.JwtService;
 
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
+@Component
 public class SecurityFilter extends OncePerRequestFilter {
 
-    private final JwtService jwtService;
-    private final UsuarioService usuarioService;
+    private final JwtService jwtService;    
 
-    
-
-    public SecurityFilter(JwtService jwtService, UsuarioService usuarioService) {
+    public SecurityFilter(JwtService jwtService) {
         this.jwtService = jwtService;
-        this.usuarioService = usuarioService;
     }
 
 
@@ -40,11 +37,13 @@ public class SecurityFilter extends OncePerRequestFilter {
         // valida e autentica
         if (token != null && jwtService.tokenValido(token)) {
             String email = jwtService.extrairEmail(token);
-            Usuario usuario = usuarioService.findByEmail(email);
+            String role = jwtService.extrairRole(token); 
 
-            // registra o usuário autenticado no contexto do Spring
+            List<SimpleGrantedAuthority> authorities = 
+                List.of(new SimpleGrantedAuthority(role));
+
             UsernamePasswordAuthenticationToken auth =
-                new UsernamePasswordAuthenticationToken(usuario, null, null);
+                new UsernamePasswordAuthenticationToken(email, null, authorities);
 
             SecurityContextHolder.getContext().setAuthentication(auth);
         }

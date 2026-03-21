@@ -1,4 +1,4 @@
-package com.github.batistaw.crmBridge.service;
+package com.github.batistaw.crmBridge.security.service;
 
 import java.util.Date;
 import java.security.Key;
@@ -18,9 +18,10 @@ public class JwtService {
     private String SECRET_KEY;
 
     // gera o token
-    public String gerarToken(String email) {
+    public String gerarToken(String email, String role) {
         return Jwts.builder()
                 .setSubject(email)
+                .claim("role", role)
                 .setIssuedAt(new Date())
                 .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 60 * 8)) 
                 .signWith(getSecretKey(), SignatureAlgorithm.HS256)
@@ -36,6 +37,16 @@ public class JwtService {
                 .getBody()
                 .getSubject();
     }
+
+    // Extrair a role
+    public String extrairRole(String token) {
+        return Jwts.parserBuilder()
+            .setSigningKey(getSecretKey())
+            .build()
+            .parseClaimsJws(token)
+            .getBody()
+            .get("role", String.class);
+}
 
     // valida o token
     public boolean tokenValido(String token) {

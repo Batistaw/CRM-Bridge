@@ -1,7 +1,7 @@
 package com.github.batistaw.crmBridge.service;
 
 import java.util.List;
-import java.util.Optional;
+
 
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -19,9 +19,13 @@ public class UsuarioService {
         this.passwordEncoder = passwordEncoder;
     }
 
-    public void registroUsuario(Usuario usuario) {
+    public void save(Usuario usuario) {
         usuario.setSenha(passwordEncoder.encode(usuario.getSenha()));
         usuarioRepository.save(usuario);
+    }
+
+    public boolean senhaValida(String senhaDigitada, String SenhaBancoDados) {
+        return passwordEncoder.matches(senhaDigitada, SenhaBancoDados);
     }
 
     public Usuario findByEmail(String email) {
